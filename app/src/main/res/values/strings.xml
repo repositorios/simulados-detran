@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Detran Simulados</string>
+
+    <string name="selecione_opcao_abaixo">Para começar, selecione uma opção abaixo</string>
+    <string name="titulo">Simulados do Detran</string>
+    <string name="subtitulo">Estude para provas do Detran gratuitamente</string>
+    <string name="como_usar">Como usar:</string>
+    <string name="paragrafo_1">Selecione abaixo uma das opções e treine para a prova teórica do Detran.</string>
+    <string name="paragrafo_2">Um dos conteúdos mais cobrados na prova do Detran é a sinalização vertical. Para que você tenha maiores chances de aprovação desenvolvemos esse aplicativo.</string>
+    <string name="paragrafo_3">Estude todas as placas da aba Estudar e em seguida realize o simulado. Após cada pergunta do simulado você saberá se acertou ou erro a questão, isso ajuda na memorização.</string>
+    <string name="paragrafo_4">Na aba estatística você também possui um resumo de seu progresso ao longo do tempo, use-o para ter a certeza de sua evolução nos estudos e reinicie o contador antes de cada simulado.</string>
+</resources>

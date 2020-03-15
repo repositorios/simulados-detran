@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/estudar"
+        android:icon="@drawable/ic_estudar"
+        android:title="Estudar" />
+
+    <item
+        android:id="@+id/simulado"
+        android:icon="@drawable/ic_simulado"
+        android:title="Simulado" />
+
+    <item
+        android:id="@+id/estatisticas"
+        android:icon="@drawable/ic_estatisticas"
+        android:title="Estatísticas" />
+</menu>

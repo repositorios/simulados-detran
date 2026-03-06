@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.pacote.android.apps.simuladodetran.R;
 import org.pacote.android.apps.simuladodetran.databinding.ActivityMainBinding;
@@ -32,29 +32,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
         binding.bottomNavigation.setItemIconTintList(null); // Força os icones do menu ficarem coloridos
-        binding.bottomNavigation.setOnNavigationItemSelectedListener(navListener);
+        binding.bottomNavigation.setOnItemSelectedListener(navListener);
 
 
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private NavigationBarView.OnItemSelectedListener navListener = new NavigationBarView.OnItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selected = null;
 
-            //TODO: Descobrir como pegar os ids do menu com view biding
-            switch (item.getItemId()) {
-                case R.id.estudar:
-                    selected = new EstudarFragment();
-                    break;
-                case R.id.simulado:
-                    selected = new SimuladoFragment();
-                    break;
-                case R.id.estatisticas:
-                    selected = new EstatisticasFragment();
-                    break;
-                default:
-                    Toast.makeText(MainActivity.this, "Opção inválida", Toast.LENGTH_LONG).show();
+            int itemId = item.getItemId();
+            if (itemId == R.id.estudar) {
+                selected = new EstudarFragment();
+            } else if (itemId == R.id.simulado) {
+                selected = new SimuladoFragment();
+            } else if (itemId == R.id.estatisticas) {
+                selected = new EstatisticasFragment();
+            } else {
+                Toast.makeText(MainActivity.this, "Opção inválida", Toast.LENGTH_LONG).show();
             }
 
             binding.fragmentContainer.removeAllViews();

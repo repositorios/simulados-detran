@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.gms.ads.AdRequest;
+
 import org.pacote.android.apps.simuladodetran.databinding.FragmentSimuladoBinding;
 import org.pacote.android.apps.simuladodetran.models.entities.Estatisticas;
 import org.pacote.android.apps.simuladodetran.models.entities.Placa;
@@ -50,13 +52,32 @@ public class SimuladoFragment extends Fragment {
         binding.responder.setOnClickListener(onClickResponder);
         binding.proxima.setOnClickListener(onClickNovaPergunta);
 
+        binding.adView.loadAd(new AdRequest.Builder().build());
+
         return binding.getRoot();
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (binding != null) binding.adView.resume();
+    }
+
+    @Override
     public void onPause() {
+        if (binding != null) binding.adView.pause();
         super.onPause();
-        estatisticasViewModel.atualiza(estatisticas);
+        // pode ser null se o usuario sair da aba antes do Room carregar
+        if (estatisticas != null) estatisticasViewModel.atualiza(estatisticas);
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (binding != null) {
+            binding.adView.destroy();
+            binding = null;
+        }
+        super.onDestroyView();
     }
 
     private void observeTodasPlacas() {
@@ -80,6 +101,8 @@ public class SimuladoFragment extends Fragment {
 
 
     private void atualizaPergunta() {
+        if (binding == null) return; // a view ja foi destruida (troca de aba)
+
         binding.radioGroup.clearCheck();
         binding.proxima.setVisibility(View.INVISIBLE);
         binding.responder.setVisibility(View.VISIBLE);

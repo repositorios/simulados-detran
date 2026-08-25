@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationBarView;
 
 import org.pacote.android.apps.simuladodetran.R;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        MobileAds.initialize(this);
 
         binding.bottomNavigation.setItemIconTintList(null); // Força os icones do menu ficarem coloridos
         binding.bottomNavigation.setOnItemSelectedListener(navListener);

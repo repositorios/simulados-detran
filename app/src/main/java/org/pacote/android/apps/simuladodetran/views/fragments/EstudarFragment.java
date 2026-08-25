@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.gms.ads.AdRequest;
+
 import org.pacote.android.apps.simuladodetran.databinding.FragmentEstudarBinding;
 import org.pacote.android.apps.simuladodetran.models.entities.Placa;
 import org.pacote.android.apps.simuladodetran.viewmodel.PlacaViewModel;
@@ -42,12 +44,30 @@ public class EstudarFragment extends Fragment {
         binding.proxima.setOnClickListener(onClickProximaPlaca);
         binding.anterior.setOnClickListener(onClickAnteriorPlaca);
 
+        binding.adView.loadAd(new AdRequest.Builder().build());
+
         return binding.getRoot();
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (binding != null) binding.adView.resume();
+    }
+
+    @Override
     public void onPause() {
+        if (binding != null) binding.adView.pause();
         super.onPause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (binding != null) {
+            binding.adView.destroy();
+            binding = null;
+        }
+        super.onDestroyView();
     }
 
     public void observeTodasPlacas() {
@@ -62,6 +82,7 @@ public class EstudarFragment extends Fragment {
     }
 
     private void atualizaPlaca() {
+        if (binding == null) return; // a view ja foi destruida (troca de aba)
 
         byte[] decodedString = Base64.decode(todasPlacas.get(placaViewModel.getPosicaoAtual()).getImagem(), Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
